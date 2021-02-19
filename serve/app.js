@@ -1,0 +1,48 @@
+const express=require("express")
+const app=express()
+const users=require("./routes/user/user")
+const getBookInfo=require("./routes/book/getBookInfo")
+const getBookrack=require("./routes/book/getBookrack")
+const getBookOtherInfo=require("./routes/book/bookDetail/bookOtherInfo")
+const userOprea=require("./routes/user/userOpera/operaBook")
+const thumbAndCollect=require("./routes/user/userOpera/thumbCollect")
+const remarkBook=require("./routes/user/userOpera/remarkBook")
+const getNotice=require("./routes/notice/getNotice")
+const getSeat=require("./routes/studyRoom/getSeat")
+const bookAdmin=require("./routes/admin/bookadmin")
+const bookRackManage=require("./routes/admin/bookRackManage")
+const noticeManage=require("./routes/admin/noticeManage")
+const userInfoManage=require("./routes/admin/userInfoManage")
+const borrowManage=require("./routes/admin/borrowManage")
+const {resolve}=require("path")
+app.all('*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+    res.header('X-Powered-By', ' 3.2.1')
+    res.header('Content-Type', 'application/json;charset=utf-8')
+    next()
+  })
+app.use(express.urlencoded({
+    extended:true
+}))
+//处理post请求  
+app.use(users)
+app.use(getBookInfo)
+app.use(getBookrack)
+app.use(getBookOtherInfo)
+app.use(userOprea)
+app.use(thumbAndCollect)
+app.use(getNotice)
+app.use(remarkBook)
+app.use(getSeat)
+app.use(bookAdmin)
+app.use(bookRackManage)
+app.use(noticeManage)
+app.use(userInfoManage)
+app.use(borrowManage)
+app.use('/static/',express.static(resolve(__dirname,'./upload')));
+// 静态资源部署
+app.listen(3000,()=>{
+    console.log('connecting is opening')
+})
