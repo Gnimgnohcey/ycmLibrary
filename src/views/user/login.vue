@@ -57,6 +57,7 @@ export default {
         }
     },
     methods:{
+      // 测试git
         handleSubmit (name) {
         this.$refs[name].validate((valid) => {
             if (valid) { 
